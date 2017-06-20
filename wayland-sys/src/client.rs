@@ -84,9 +84,7 @@ lazy_static!(
         match WaylandClient::open("libwayland-client.so") {
             Ok(h) => Some(h),
             Err(::dlib::DlError::NotFound) => None,
-            Err(::dlib::DlError::MissingSymbol(s)) => {
-                panic!("Found library libwayland-client.so but symbol {} is missing.", s);
-            }
+            Err(::dlib::DlError::MissingSymbol(_)) => None
         }
     };
     pub static ref WAYLAND_CLIENT_HANDLE: &'static WaylandClient = {
